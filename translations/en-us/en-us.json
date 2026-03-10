@@ -1,0 +1,13 @@
+{
+  "label": "English (US)",
+  "label_lat": "english us",
+  "label_en": "English (US)",
+  "lang_dir": "LTR",
+  "available": true,
+  "translators": [
+    {
+      "name": "Stefan Bohacek",
+      "url": "https://stefanbohacek.online/@stefan"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<div class="container mb-5 mt-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="display-4 fw-bold text-center my-5">{{{__ "about_page_title"}}}</h1>
+            <p>{{{__ "about_description"}}}</p>
+            <ul class="row mt-5">
+                {{#each translations}}
+                    {{#if this.available}}
+                        {{#if this.translators}}
+                        <div class="col-sm-12 col-md-6 col-lg-4  pb-4">
+                            <li>{{this.label}}
+                            {{#each this.translators}}
+                                <ul>
+                                    <li>
+                                        <a rel="me" href="{{this.url}}">{{this.name}}</a>
+                                    </li>
+                                </ul>
+                            {{/each}}
+                            </li>
+                        </div>                        
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

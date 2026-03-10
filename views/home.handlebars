@@ -1,12 +1,11 @@
 <h1 class="mt-5">
-  Join the fediverse!
+  {{{__ "home_intro_title"}}}
 </h1>
 <p class="lead mt-5">
-  The fediverse is made up of many communities and platforms, such as Mastodon, Pixelfed, or Loops, <a href="https://jointhefediverse.net/join">and many more</a>, that all work together instead of competing. You can join any one of them and follow
-  and interact with people across the entire fediverse with a single account.
+  {{{__ "home_intro_description"}}}
 </p>
 <p class="lead mt-5">
-  Here is one such community.
+  {{{__ "home_intro_community"}}}
 </p>
 <div class="card mt-5">
   <div class="card-body">
@@ -17,8 +16,8 @@
         </p>
       </div>
       <div class="col-12 col-md-6 text-md-end pb-4 pb-md-0">
-        <span class="badge rounded-pill text-bg-info">{{server_post_count}} posts</span>
-        <span class="badge rounded-pill text-bg-success">{{server_user_count}} active users</span>
+        <span class="badge rounded-pill text-bg-info">{{server_post_count}} {{{__ "home_intro_community_post_count_label_plural"}}}</span>
+        <span class="badge rounded-pill text-bg-success">{{server_user_count}} {{{__ "home_intro_community_user_count_label_plural"}}}</span>
       </div>
       <div class="col-12">
         <p class="lead">
@@ -26,25 +25,19 @@
         </p>
         <p class="mt-5">
           <a class="btn btn-primary mb-3"
-            href="{{server_url}}">Explore and sign up</a>
+            href="{{server_url}}">{{{__ "home_cta_sign_up"}}}</a>
           <a class="btn btn-outline-primary mb-3"
-            href="https://fedidb.com/welcome">Find another one</a>
+            href="https://fedidb.com/welcome">{{{__ "home_cta_secondary"}}}</a>
         </p>
       </div>
     </div>
-    <!--
-        <img width="250"
-          class="rounded bg-dark"
-          src="{{server_thumbnail_url}}"
-          alt="">
-      -->
   </div>
 </div>
 <p class="lead mt-5">
   {{#if show_one_app}}
-  And here is a great app you can use.
+    {{{__ "home_intro_apps_single"}}}
   {{else}}
-  And here are just a few of the many apps that you can use.
+    {{{__ "home_intro_apps_multiple"}}}
   {{/if}}
 </p>
 
@@ -53,23 +46,23 @@
   <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-4">
     <div class="card h-100">
       <div class="card-body">
-        <span class="badge rounded-pill text-bg-info float-end fs-7">{{platform}}</span>
-        <h5 class="card-title">{{name}}</h5>
-        <p class="card-text fs-5">{{description}}</p>
+        <span class="badge rounded-pill text-bg-info float-end fs-7">{{t platform}}</span>
+        <h5 class="card-title">{{t name}}</h5>
+        <p class="card-text fs-5">
+          {{t description}}
+          </p>
       </div>
       <div class="card-footer bg-body border-0 pb-3">
         <a href="{{get_link_url}}"
-          class="fs-6 btn btn-primary">{{get_link_title}}</a>
+          class="fs-6 btn btn-primary">{{t get_link_label}}</a>
       </div>
     </div>
   </div>
   {{/each}}
 </div>
-
 <p class="lead mt-5">
-  Want to find more people to follow? Check out some of the <a
-    href="https://most-followed-mastodon-accounts.stefanhayden.com/?server={{server_domain}}">popular accounts</a> and <a
-    href="https://fedidevs.com/starter-packs/">starter packs</a>.
+  {{{__ "home_popular_accounts_description"}}}
+  <a href="https://most-followed-mastodon-accounts.stefanhayden.com/?server={{server_domain}}">{{{__ "home_popular_accounts_link_title"}}}</a>
+  <a href="https://fedidevs.com/starter-packs/">{{{__ "home_starter_packs_link_title"}}}</a>.
 </p>
-<div id="starter-packs"
-  class="row"></div>
+<div id="starter-packs" class="row"></div>

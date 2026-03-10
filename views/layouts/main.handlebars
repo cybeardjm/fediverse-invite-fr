@@ -8,17 +8,17 @@
         content="IE=edge">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
-    <title>Join the fediverse!</title>
+    <title>{{{__ "main_site_title"}}}!</title>
     <link rel="stylesheet"
         href="/css/main.css">
     <link rel="stylesheet"
         href="/libs/bootstrap/5.3.8/css/bootstrap.min.css">
     <meta property="og:title"
-        content="Join the fediverse!" />
+        content="{{{__ "main_site_title"}}}" />
     <meta name="description"
-        content="Your quick-start invitation to the wonderful world of the fediverse." />
+        content="{{{__ "main_site_description"}}}" />
     <meta property="og:description"
-        content="Your quick-start invitation to the wonderful world of the fediverse." />
+        content="{{{__ "main_site_description"}}}" />
     <meta property="og:type"
         content="website" />
     <meta property="og:url"
@@ -26,7 +26,7 @@
     <meta property="og:image"
         content="https://invite.jointhefediverse.net/images/fediverse.png" />
     <meta property="og:image:alt"
-        content="The word 'fediverse' translated into multiple languages, written in shades of gray on a dark background." />
+        content="{{{__ "main_site_thumbnail_description"}}}" />
     <!--
         <link rel="apple-touch-icon"
         href="icons/apple-touch-icon.png"
@@ -54,34 +54,96 @@
 
 <body class="d-flex flex-column h-100 m-0 p-0">
     <script>
-        const toggleDarkMode = (enabled) => {
-            if (enabled) {
-                document.body.setAttribute('data-bs-theme', 'dark');
-            } else {
-                document.body.setAttribute('data-bs-theme', 'light');
+        const Cookies = {
+            setCookie: (cookieName, cookieValue, maxAgeDays) => {
+                maxAgeDays = maxAgeDays || 365;
+                document.cookie = `${cookieName}=${cookieValue}; maxAge=${maxAgeDays || 24 * 60 * 60 * 1000
+                    };path=/`;
+            },
+            getCookie: (cookieName) => {
+                let name = cookieName + "=";
+                let ca = document.cookie.split(";");
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == " ") {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            },
+            checkCookie: () => {
+                let user = getCookie("username");
+                if (user != "") {
+                    alert("Welcome again " + user);
+                } else {
+                    user = prompt("Please enter your name:", "");
+                    if (user != "" && user != null) {
+                        setCookie("username", user, 365);
+                    }
+                }
+            },
+        };
+
+        const applyTheme = (theme) => {
+            switch (theme) {
+                case "light":
+                    htmlElement.dataset.bsTheme = "light";
+                    break;
+                case "dark":
+                    htmlElement.dataset.bsTheme = "dark";
+                    break;
+                case "auto":
+                default:
+                    const prefersDark = window.matchMedia(
+                        "(prefers-color-scheme: dark)"
+                    ).matches;
+                    htmlElement.dataset.bsTheme = prefersDark ? "dark" : "light";
             }
         }
 
-        if (window.matchMedia) {
-            toggleDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
-        }
+        const htmlElement = document.documentElement;
+        const currentTheme = Cookies.getCookie("theme") || "auto";
+        applyTheme(currentTheme);
+  </script>
+  <header class="w-100">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse"
+                    id="navbarCollapse"
+                    style="">
+                </div>
+                <form id="language-switcher-wrapper"
+                    class="d-flex gap-2 flex-row flex-md-column flex-lg-row">
+                    <select id="theme-switcher"
+                        class="form-select mt-2 w-auto">
+                        <option value="auto">🌓 {{{__ "navigation_theme_auto"}}}</option>
+                        <option value="light">☀️ {{{__ "navigation_theme_light"}}}</option>
+                        <option value="dark">🌙 {{{__ "navigation_theme_dark"}}}</option>
+                    </select>
+                    <select id="language-switcher"
+                        class="form-select mt-2">
+                        <option style="display:none"></option>
+                        {{#each translations}}
+                        <option value="{{this.code}}">{{this.label}}</option>
+                        {{/each}}
+                        <option disabled value="coming-soon">More coming soon!</option>
+                    </select>
+                </form>
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            toggleDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
-        });
-    </script>
-    <main class="flex-shrink-0">
+            </div>
+        </nav>
+    </header>
+    <main class="flex-shrink-0 pt-5">
         <div class="container">
             {{{body}}}
         </div>
     </main>
     <footer class="footer mt-auto py-3">
         <div class="container my-5">
-            <small>
-                Created by <a href="https://stefanbohacek.online/@stefan">Stefan Bohacek</a> and curated by whoever
-                shared this link with you. Learn more <a href="https://stefanbohacek.com/project/fediverse-invitation/">on my
-                    blog</a> or <a href="https://github.com/stefanbohacek/fediverse-invite">view the source code</a>.
-            </small>
+            <small>{{{__ "footer_description"}}}</small>
         </div>
     </footer>
     <script type="module"

@@ -36,8 +36,23 @@ router.get("/", async (req, res) => {
 
     // console.log(serverInfo);
 
+    const downloadURLs = ["apps.apple.com", "play.google.com"];
+
+    apps.forEach((app) => {
+      app.name = `apps_app_${app.id}_name`;
+      app.description = `apps_app_${app.id}_description`;
+      if (downloadURLs.some((url) => app.get_link_url.includes(url))) {
+        app.get_link_label = "apps_download_link_label";
+      } else {
+        app.get_link_label = "apps_learn_more_link_label";
+      }
+    });
+
     try {
       res.render("../views/home.handlebars", {
+        supported_languages: JSON.stringify(res.locals.languages),
+        translations: res.translations,
+        current_locale: res.currentLocale,
         server_domain: serverInfo.domain,
         server_url: `https://${serverInfo.domain}`,
         server_name: serverInfo.nodeInfo.metadata.nodeName,
