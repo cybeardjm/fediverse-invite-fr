@@ -15,7 +15,7 @@ const getAppByTag = (tag) =>
   apps.filter((app) => app.tags && app.tags.includes(tag));
 
 router.get("/", async (req, res) => {
-  const server = req.query?.server.trim().toLowerCase() ?? "mastodon.social";
+  const server = req.query.server?.trim().toLowerCase() ?? "mastodon.social";
   const appIDs = req.query.apps ?? "1,2,3,4";
   const currentLocale = req.query.lang || "en-us";
 
