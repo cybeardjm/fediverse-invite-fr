@@ -1,4 +1,5 @@
 import express from "express";
+import { linkifyUrlsToHtml } from "linkify-urls";
 import getServerInfo from "../modules/getServerInfo.js";
 import slugify from "../modules/slugify.js";
 import validateDomain from "../modules/validateDomain.js";
@@ -50,6 +51,16 @@ router.get("/", async (req, res) => {
       }
     });
 
+    const serverDescription = linkifyUrlsToHtml(
+      serverInfo.nodeInfo.metadata.nodeDescription,
+      {
+        attributes: {
+          rel: "noreferrer",
+          target: "_blank",
+        },
+      },
+    );
+
     try {
       res.render("../views/home.handlebars", {
         supported_languages: JSON.stringify(res.locals.languages),
@@ -58,7 +69,7 @@ router.get("/", async (req, res) => {
         server_domain: serverInfo.domain,
         server_url: `https://${serverInfo.domain}`,
         server_name: serverInfo.nodeInfo.metadata.nodeName,
-        server_description: serverInfo.nodeInfo.metadata.nodeDescription,
+        server_description: serverDescription,
         server_thumbnail_url: serverInfo.instance_data?.thumbnail_url,
         server_icon_url: serverInfo.instance_data?.icon_url,
         server_contact_name: serverInfo.instance_data?.contact_name,
