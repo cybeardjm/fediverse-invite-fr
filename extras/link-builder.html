@@ -1,5 +1,7 @@
-<form id="link-builder">
+<script type="text/javascript"
+  src="https://stefanbohacek.com/wp-content/themes/fourtonfish/libs/qrcodejs/qrcode.min.js"></script>
 
+<form id="link-builder">
   <div class="mb-3">
     <label for="server-domain"
       class="form-label">Your server (without https://)</label>
@@ -49,20 +51,31 @@
     <a href="https://github.com/stefanbohacek/fediverse-invite?tab=readme-ov-file#translation"
       target="_blank">Help with translations</a>
   </div>
-  <div class="mb-3">
-    <label for="invitation-url"
-      class="form-label">Your invitation link</label>
-    <textarea disabled
-      class="form-control"
-      id="invitation-url"
-      rows="3">https://invite.jointhefediverse.net/?lang=en-us</textarea>
+
+  <div class="row">
+    <div class="col-12 col-md-9">
+      <div class="mb-3">
+        <label for="invitation-url"
+          class="form-label">Your invitation link</label>
+        <textarea disabled
+          class="form-control"
+          id="invitation-url"
+          rows="3">https://invite.jointhefediverse.net/?lang=en-us</textarea>
+      </div>
+      <div class="mb-3">
+        <a id="invitation-link"
+          href="https://invite.jointhefediverse.net/?lang=en-us"
+          class="btn btn-primary"
+          target="_blank">Open link</a>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div id="qrcode"></div>
+    </div>
   </div>
-  <div class="mb-3">
-    <a id="invitation-link"
-      href="https://invite.jointhefediverse.net/?lang=en-us"
-      class="btn btn-primary"
-      target="_blank">Open link</a>
-  </div>
+
+
+
 </form>
 
 <script>
@@ -78,6 +91,8 @@
   const languageDropdown = document.getElementById("language");
   const invitationURLField = document.getElementById("invitation-url");
   const invitationURLBtn = document.getElementById("invitation-link");
+
+  const qrcode = new QRCode(document.getElementById("qrcode"), "https://invite.jointhefediverse.net/?lang=en-us");
 
   const updateLink = () => {
     try {
@@ -104,6 +119,9 @@
       if (invitationURLBtn) {
         invitationURLBtn.href = invitationURL;
       }
+
+      qrcode.makeCode(invitationURL);
+
     } catch (err) {
       // noop
     }
